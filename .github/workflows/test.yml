@@ -26,5 +26,10 @@ jobs:
       - name: Installation des dépendances
         run: npm install
  
-      - name: Exécution des tests Jest
-        run: npm test
+      - name: Exécution des tests JavaScript
+        run: |
+          node test_remove_basket.js
+          node test_remove_factoriser.js
+          node test_transaction.js
+          node testPayBasket.js
+          node basket.js
