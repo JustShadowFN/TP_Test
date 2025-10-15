@@ -1,0 +1,26 @@
+name: CI de Test Unitaire
+
+on:
+  push:
+    branches: [ main ] # Déclenchement sur chaque push sur main
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Récupère le code
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. Configure Node.js 
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    # 3. Exécute la suite de tests
+    - name: Run E-commerce Tests
+      run: node main_test.js
