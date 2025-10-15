@@ -1,26 +1,30 @@
-name: CI de Test Unitaire
-
+name: Tests Node.js avec Jest
+ 
 on:
   push:
-    branches: [ main ] # Déclenchement sur chaque push sur main
+    branches: [ main ]
   pull_request:
     branches: [ main ]
-
+ 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
-
+ 
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+ 
     steps:
-    # 1. Récupère le code
-    - name: Checkout Code
-      uses: actions/checkout@v4
-
-    # 2. Configure Node.js 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-
-    # 3. Exécute la suite de tests
-    - name: Run E-commerce Tests
-      run: node main_test.js
+      - name: Récupération du code source
+        uses: actions/checkout@v4
+ 
+      - name: Installation de Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+ 
+      - name: Installation des dépendances
+        run: npm install
+ 
+      - name: Exécution des tests Jest
+        run: npm test
